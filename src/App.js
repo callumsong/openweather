@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import currentTime from './util/util.js'
 import './App.css';
 
 class App extends Component {
@@ -7,7 +8,8 @@ class App extends Component {
     super();
     this.state = {
       name: '',
-      weather: [],
+      weather: [], // the information from the API comes back as an array
+      time: '',
     }
   }
 
@@ -26,6 +28,11 @@ class App extends Component {
           weather: weather,
         });
       });
+      setInterval(() => {
+        this.setState({
+          time: currentTime(),
+        })
+      }, 1000);
   }
   render() {
     var { name, weather } = this.state;
@@ -37,6 +44,7 @@ class App extends Component {
           </h1>
         </header>
         <h2>Weather Report</h2>
+        <p>{currentTime()}</p>
         {weather.map((forecast) => (
           <span>
             <p>
